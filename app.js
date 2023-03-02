@@ -2,6 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 
+const md5 = require('md5');
+
 app.set('view engine', 'ejs');
 
 app.use(express.static('public'));

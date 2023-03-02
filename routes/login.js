@@ -3,6 +3,8 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
 
+const md5 = require('md5');
+
 router.route('/')
     .get((req, res) => {
         res.render('login');
@@ -15,7 +17,7 @@ router.route('/')
 module.exports = router
 
 
-/* level 1 */
+/*  */
 
 async function isAuthenticate(req, res, next){
     const {username, password} = req.body;
@@ -25,7 +27,7 @@ async function isAuthenticate(req, res, next){
         if(!user){
             return res.status(400).send("No User found!!");
         } 
-        if(user.password === password){
+        if(user.password === md5(password)){
             return next();
         }
         res.status(401).send("Not Authorized!!");
