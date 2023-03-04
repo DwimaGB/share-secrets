@@ -3,7 +3,10 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', (req, res)=>{
-    res.render('home');
+    if(!req.isAuthenticated())  res.render('home');
+    else{
+        res.redirect('/secrets');
+    }
 })
 
 module.exports = router

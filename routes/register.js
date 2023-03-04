@@ -9,7 +9,11 @@ const {hashPassword} = require('../middlewares/authMiddlewares');
 
 router.route('/')
     .get((req, res) => {
-        res.render('register');
+        if(!req.isAuthenticated())  res.render('register');
+        else{
+            res.redirect('/secrets');
+        }
+        
     })
     .post(hashPassword, async (req, res) => {
         try{
@@ -18,7 +22,7 @@ router.route('/')
                 password: req.body.password
             })
             await newUser.save();
-            res.render('secrets');
+            res.redirect('/login');
         }
         catch(e){
             console.log(e);

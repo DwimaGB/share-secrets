@@ -4,16 +4,21 @@ const router = express.Router();
 const User = require('../models/user');
 
 const md5 = require('md5');
+const passport = require('../config/passport-config');
 
-const {comparePassword} = require('../middlewares/authMiddlewares');
+// const {comparePassword} = require('../middlewares/authMiddlewares');
 
 router.route('/')
     .get((req, res) => {
-        res.render('login');
+        if(!req.isAuthenticated())  res.render('login');
+        else{
+            res.redirect('/secrets');
+        }
     })
-    .post(comparePassword, (req, res)=>{
-        res.render('secrets');
-    })
+    .post(passport.authenticate('local', {
+        successRedirect: '/secrets',
+        failureRedirect: '/login'
+    }));
 
 
 module.exports = router
