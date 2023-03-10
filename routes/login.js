@@ -4,16 +4,14 @@ const router = express.Router();
 const User = require('../models/user');
 
 const md5 = require('md5');
-const passport = require('../config/passport-config');
+const passport = require('passport');
+const { handleLoggedUser } = require('../middlewares/authMiddlewares');
 
 // const {comparePassword} = require('../middlewares/authMiddlewares');
 
 router.route('/')
-    .get((req, res) => {
-        if(!req.isAuthenticated())  res.render('login');
-        else{
-            res.redirect('/secrets');
-        }
+    .get(handleLoggedUser, (req, res) => {
+        res.render('login');
     })
     .post(passport.authenticate('local', {
         successRedirect: '/secrets',

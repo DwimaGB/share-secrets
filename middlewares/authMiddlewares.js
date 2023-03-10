@@ -35,4 +35,24 @@ const comparePassword = async(req, res, next)=>{
     }
 }
 
-module.exports = {hashPassword, comparePassword};
+
+const handleLoggedUser = (req, res, next)=>{
+    if(req.isAuthenticated()){
+        res.redirect('/secrets');
+    }
+    else{
+        next();
+    }
+}
+
+
+const authorizeProtectedRoutes = (req, res, next)=>{
+    if(req.isAuthenticated()){
+        next();
+    }
+    else{
+        res.redirect('/');
+    }
+}
+
+module.exports = {hashPassword, comparePassword, handleLoggedUser, authorizeProtectedRoutes};

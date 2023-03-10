@@ -1,12 +1,11 @@
 
 const express = require('express');
+const { handleLoggedUser } = require('../middlewares/authMiddlewares');
 const router = express.Router();
 
-router.get('/', (req, res)=>{
-    if(!req.isAuthenticated())  res.render('home');
-    else{
-        res.redirect('/secrets');
-    }
+router.get('/', handleLoggedUser, (req, res)=>{
+    res.render('home');
+  
 })
 
 module.exports = router

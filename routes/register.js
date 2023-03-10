@@ -5,15 +5,11 @@ const User = require('../models/user');
 
 // const md5 = require('md5');
 
-const {hashPassword} = require('../middlewares/authMiddlewares');
+const {hashPassword, handleLoggedUser} = require('../middlewares/authMiddlewares');
 
 router.route('/')
-    .get((req, res) => {
-        if(!req.isAuthenticated())  res.render('register');
-        else{
-            res.redirect('/secrets');
-        }
-        
+    .get(handleLoggedUser, (req, res) => {
+        res.render('register'); 
     })
     .post(hashPassword, async (req, res) => {
         try{

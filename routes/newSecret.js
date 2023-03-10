@@ -1,22 +1,23 @@
 
-
 const express = require('express');
 const router = express.Router();
 
 const Secret = require('../models/secret');
 
 router.route('/')
-    .get(async (req, res) => {
-        // console.log(req.user);
+    .get((req, res) => {
+        res.render('submit');
+    })
+    .post(async(req, res)=>{
+        const {secret} = req.body;
         try{
-            const secrets = await Secret.find({});
-            res.render('secrets', {secrets});
+            await Secret.create({content: secret});
+            res.redirect('/secrets');
         }
         catch(e){
             res.sendStatus(500);
         }
-        
-        
     })
+
 
 module.exports = router;
