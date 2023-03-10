@@ -14,3 +14,14 @@ body {
   color: #fff;
   background-color: #000;
 }
+
+
+.flash-message{
+  font-weight: 500;
+  
+}
+
+
+.danger{
+  color: hsl(3, 67%, 50%);
+}

@@ -14,10 +14,10 @@ passport.use(new LocalStrategy({ usernameField: 'username' }, async (username, p
 
     try {
         const user = await User.findOne({ email: username });
-        if (!user) return done(null, false);
+        if (!user) return done(null, false, {message: "Invalid Credentials!"});
         user.strategy = 'local'; //custom property for differentiating the serializeUser and deserializeUser 
         if (await bcrypt.compare(password, user.password)) return done(null, user);
-        done(null, false);
+        done(null, false, {message: "Invalid Credentials!"});
 
     }
     catch (e) {

@@ -2,6 +2,7 @@ require('dotenv').config();
 const fs = require('fs');
 const https = require('https');
 const helmet = require('helmet');
+const flash = require('express-flash');
 const express = require('express');
 const app = express();
 
@@ -54,6 +55,8 @@ app.use(passport.session());
 
 // passportLocalStrategy(passport);
 // passportGoogleStrategy(passport);
+
+app.use(flash());
 
 const indexRouter = require('./routes/index');
 const registerRouter = require('./routes/register');
