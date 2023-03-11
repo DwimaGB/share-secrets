@@ -79,6 +79,6 @@ app.use('/submit', require('./routes/newSecret'));
 https.createServer({
     key: process.env.CERT_PRIV_KEY,
     cert: process.env.CERT
-}, app).listen(3000, ()=>{
+}, app).listen(process.env.PORT || 3000, ()=>{
     console.log('Listening to 3000');
 })
